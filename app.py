@@ -387,7 +387,7 @@ def translate(letters):
 # url = 'https://i.imgur.com/wXgavTw.jpg' # sort of works
 # url = 'https://i.imgur.com/jLtrKEc.jpg' # works poorly
 
-# url = 'https://i.imgur.com/eKyq1mW.jpg' # works  USE THIS
+url = 'https://i.imgur.com/eKyq1mW.jpg' # works  USE THIS
 
 #url = 'https://imgur.com/NezKuku.jpg' # sort of works
 #url = 'https://imgur.com/Lu3w5py.jpg'

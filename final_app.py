@@ -397,6 +397,8 @@ def translate(letters):
 # url = 'https://i.imgur.com/lwtjJuE.jpeg' #braille with lights 1
 # url = 'https://imgur.com/bqIhy54.jpeg' #braille with lights 2
 
+url = input("Enter something: ")
+
 
 
 image, ctrs, paper, gray, edged, thresh = get_image(url, iter = 0, width = 1500)
@@ -416,10 +418,10 @@ ans = translate(letters)
 from textwrap import wrap
   
 plt.axis('off')
-io.imshow(image)
+# io.imshow(image)
 
-plt.show()
+# plt.show()
 for l in wrap(ans, width = 80):
   print(l)
 
-display_contours((25,30), True)
+# display_contours((25,30), True)
