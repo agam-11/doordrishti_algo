@@ -1,5 +1,3 @@
-!pip install imutils
-!pip install imageio
 from imutils.perspective import four_point_transform as FPT
 from collections import Counter
 import matplotlib.pyplot as plt
@@ -9,6 +7,7 @@ import numpy as np
 import imutils
 import cv2
 import re
+import os
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -19,15 +18,48 @@ def get_image(url, iter = 2, width = None):
     image = imutils.resize(image, width)
   ans = image.copy()
   accumEdged = np.zeros(image.shape[:2], dtype="uint8")
+
+  #path where we will be storing our image processing outputs
+  imgDir = r'C:\Users\Agam\Projects\tests\images' 
+
   # convert image to black and white
   gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+  #saving image to a directory
+  cv2.imwrite(os.path.join(imgDir, 'gray.jpg'), gray) 
+  # showing output of graying the image
+  show_gray_image = cv2.resize(gray, (0, 0), fx=0.5, fy=0.5)
+  cv2.imshow('Gray Image', show_gray_image)
+
+
   # blur to remove some of the noise
   blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+  #saving image to a directory
+  cv2.imwrite(os.path.join(imgDir, 'blurred.jpg'), blurred) 
+  # showing output of blurring the image  
+  show_blurred_image = cv2.resize(blurred, (0,0), fx=0.5, fy=0.5)
+  cv2.imshow('Blurred image', show_blurred_image)
+  
   # get edges
   edged = cv2.Canny(blurred, 75, 200)
+  #saving image to a directory
+  cv2.imwrite(os.path.join(imgDir, 'edged.jpg'), edged)
+  # showing output of edged image
+  show_edged_image = cv2.resize(edged, (0,0), fx=0.5, fy=0.5)
+  cv2.imshow('Edged Image', show_edged_image)
+
   accumEdged = cv2.bitwise_or(accumEdged, edged)
+  #saving image to a directory
+  cv2.imwrite(os.path.join(imgDir, 'accumEdged.jpg'), accumEdged)
+  # showing output of accumEdged image
+  show_accumEdged_image = cv2.resize(accumEdged, (0,0), fx=0.5, fy=0.5)
+  cv2.imshow("AccumEdged Image", show_accumEdged_image)
+  
   # get contours
   ctrs = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+  # showing contours
+  # show_ctrs = cv2.resize(ctrs, (0,0), fx=0.5, fy=0.5)
+  # cv2.imshow("Contours", show_ctrs)
+
   ctrs = imutils.grab_contours(ctrs)
   docCnt = None
 
@@ -340,12 +372,32 @@ def translate(letters):
 # url = 'https://i.imgur.com/osNCAx3.jpg'    # works
 # url = 'https://i.imgur.com/maU4r0t.jpg'    # works
 # url = 'https://i.imgur.com/OdyYxp1.jpg'    # not works :< (because letters aren't aligned vertically)
-# url = 'https://i.imgur.com/ttq5PzE.jpg'    # works
+#url = 'https://i.imgur.com/ttq5PzE.jpg'    # works
 # url = 'https://i.imgur.com/EjBz4nI.jpg'    # works (iter = 0, width = 1500)
-# url = 'https://i.imgur.com/4ggIni9.jpg'    # not works :<
+# url = 'https://i.imgur.com/4ggIni9.jpg'    # not works 
 # url = 'https://i.imgur.com/UBqs60s.jpg'    # works
 # url = 'https://i.imgur.com/ihU7tFt.jpg'    # works (iter = 0, width = 1500)
-url = 'https://i.imgur.com/nFT74Mv.jpg'    # works (iter = 0, width = 1500)
+#url = 'https://i.imgur.com/nFT74Mv.jpg'    # works (iter = 0, width = 1500)
+
+# use this
+# url = 'https://media.istockphoto.com/id/1286898421/photo/braille-visually-impaired-writing-system-symbol-formed-out-of-white-spheres.jpg?s=612x612&w=0&k=20&c=cevgsCx1w-MoMdw5xvO1Qe9DydHCZ8kgWWU7t7GLYwY='    # on paper
+
+# url = 'https://i.imgur.com/qYGopaQ.jpg'  # does not work
+# url = 'https://imgur.com/xFCKeso.jpg' # does not work
+# url = 'https://i.imgur.com/wXgavTw.jpg' # sort of works
+# url = 'https://i.imgur.com/jLtrKEc.jpg' # works poorly
+
+# url = 'https://i.imgur.com/eKyq1mW.jpg' # works  USE THIS
+
+#url = 'https://imgur.com/NezKuku.jpg' # sort of works
+#url = 'https://imgur.com/Lu3w5py.jpg'
+# url = 'https://imgur.com/ZVVHH7v.jpg'
+# url = 'https://imgur.com/Up6NZGq.jpg'
+# url = 'https://imgur.com/kDxgQeg.jpg' # braille with added contrast 
+# url = 'https://i.imgur.com/lwtjJuE.jpeg' #braille with lights 1
+# url = 'https://imgur.com/bqIhy54.jpeg' #braille with lights 2
+
+
 
 image, ctrs, paper, gray, edged, thresh = get_image(url, iter = 0, width = 1500)
 
@@ -365,6 +417,7 @@ from textwrap import wrap
   
 plt.axis('off')
 io.imshow(image)
+
 plt.show()
 for l in wrap(ans, width = 80):
   print(l)

@@ -2,6 +2,8 @@
 OpenCV project that translates an image with braille into text __using edge detection__.  
 I also wrote a [blog post](https://medium.com/@marynalongnickel/making-a-braille-translator-1e205fc0ba44) about it.
 
+updated blogpost link: https://medium.com/@MarynaL/making-a-braille-translator-3f55521330e2
+
 Not very robust at the moment and can only translate braille that has the proper dimensions and alignment as specified in the US braille standards. Some finagling with tolerance and image size might also be needed prior to translating depending on size and resolution of the image.
 
 There are also different ways to express several symbols such as a period, and as of right now the code only accounts for one of them.
