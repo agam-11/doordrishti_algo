@@ -397,7 +397,7 @@ def translate(letters):
 # url = 'https://i.imgur.com/lwtjJuE.jpeg' #braille with lights 1
 # url = 'https://imgur.com/bqIhy54.jpeg' #braille with lights 2
 
-url = input("Enter something: ")
+url = input("Enter image URL that you wish to read: ")
 
 
 
